@@ -1,0 +1,17 @@
+{
+    "name": "poirot/view-helpers"
+    , "authors": [
+        {
+            "name": "Payam Naderi"
+            , "email": "naderi.payam@gmail.com"
+        }
+    ]
+    , "require": {
+        "poirot/std": "dev-devel"
+    }
+    , "autoload"  : {
+        "psr-4": {
+            "ViewHelper\\": "src/"
+        }
+    }
+}
