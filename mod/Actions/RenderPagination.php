@@ -8,7 +8,7 @@ use ViewHelper\Paginator;
 class RenderPagination
 {
     protected $navigator;
-    protected $defaultNavigator = 'elastic';
+    protected $defaultNavigator = 'sliding';
 
 
     /**
@@ -33,9 +33,9 @@ class RenderPagination
      * @param Paginator $paginator
      * @param null $navigatorName
      *
-     * @return string
+     * @return RenderPagination
      */
-    function withNavigator(Paginator $paginator, $navigatorName = null)
+    function withPaginator(Paginator $paginator, $navigatorName = null)
     {
         if ($navigatorName === null)
             $navigatorName = $this->defaultNavigator;
@@ -52,10 +52,10 @@ class RenderPagination
 
         $navigator   = $this->plugins->fresh(
             $navigatorName
-            , [ 'options' => [
+            , [
                 'pagesCount'  => $pageCount,
                 'currentPage' => $currentPage
-            ]]
+            ]
         );
 
         $new = clone $this;

@@ -1,6 +1,7 @@
 <?php
 namespace Module\ViewHelpers;
 
+use Module\ViewHelpers\Actions\RenderPagination;
 use Poirot\Application\Interfaces\Sapi;
 
 use Poirot\Application\Sapi\Module\ContainerForFeatureActions;
@@ -90,7 +91,7 @@ class Module implements Sapi\iSapiModule
 
 
     /**
-     * @method static string RenderPagination(Paginator $paginator, string $navigatorName = null)
+     * @method static RenderPagination RenderPagination(Paginator $paginator, string $navigatorName = null)
      */
     class Actions extends \IOC
     { }

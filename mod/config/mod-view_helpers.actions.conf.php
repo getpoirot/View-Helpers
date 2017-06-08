@@ -7,6 +7,6 @@ use Poirot\Ioc\Container\BuildContainer;
  */
 return array(
     'services' => array(
-
+        'RenderPagination' => \Module\ViewHelpers\Actions\RenderPagination::class
     ),
 );
