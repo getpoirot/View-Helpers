@@ -12,7 +12,7 @@
     , "autoload"  : {
         "psr-4": {
             "ViewHelper\\": "src/"
-            , "Module\\ViewHelpers": "mod/"
+            , "Module\\ViewHelpers\\": "mod/"
         },
         "files": [
             "src/_functions.php"
