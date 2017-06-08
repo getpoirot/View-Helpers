@@ -164,6 +164,7 @@ class Paginator
      * @param int $pageNumber
      *
      * @return \Traversable
+     * @throws \Exception
      */
     private function _getItemsOfPage($pageNumber)
     {
@@ -171,6 +172,15 @@ class Paginator
 
         $offset     = ($pageNumber - 1) * $this->getPageSize();
         $items      = $this->data->getItems( $offset, $this->getPageSize() );
+
+        if ( is_array($items) )
+            $items = new \ArrayIterator($items);
+
+        if (! $items instanceof \Traversable)
+            throw new \Exception(sprintf(
+                'Data Provider (%s) return (%s) instead of \Traversable.'
+                , get_class($this->data), \Poirot\Std\flatten($items)
+            ));
 
         return $items;
     }
