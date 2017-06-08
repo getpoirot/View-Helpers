@@ -6,14 +6,31 @@ use ViewHelper\Paginator\Interfaces\iPaginationDataProvider;
 use ViewHelper\Paginator\Page;
 
 
+/*
+$paginator = new \ViewHelper\Paginator(
+    new ProviderCallback(
+        function($offset, $perPage) {
+            return $this->repoPosts->find([], $offset, $perPage);
+        },
+        function() {
+            return $this->repoPosts->count([]);
+        }
+    ),
+    [
+        'page_size'     => 20,
+        'curr_page_num' => $page,
+    ]
+);
+*/
+
 class Paginator
     extends ConfigurableSetter
 {
     /** @var iPaginationDataProvider */
     protected $data;
 
-    protected $currentPageNumber  = 1;
-    protected $limitPerPage = 20;
+    protected $currPageNum  = 1;
+    protected $pageSize = 20;
 
 
     /**
@@ -44,7 +61,7 @@ class Paginator
     function page($pageNum = null)
     {
         if ($pageNum === null)
-            $pageNum = $this->getCurrentPageNumber();
+            $pageNum = $this->getCurrPageNum();
 
         $items = $this->_getItemsOfPage($pageNum);
         $page  = new Page($pageNum, $items);
@@ -89,6 +106,7 @@ class Paginator
         return $this;
     }
 
+
     // Options
 
     /**
@@ -98,9 +116,9 @@ class Paginator
      *
      * @return $this
      */
-    function setLimitPerPage($num)
+    function setPageSize($num)
     {
-        $this->limitPerPage = (int) $num;
+        $this->pageSize = (int) $num;
         return $this;
     }
 
@@ -109,9 +127,9 @@ class Paginator
      *
      * @return int
      */
-    function getLimitPerPage()
+    function getPageSize()
     {
-        return $this->limitPerPage;
+        return $this->pageSize;
     }
 
     /**
@@ -121,9 +139,9 @@ class Paginator
      *
      * @return $this
      */
-    function setCurrentPageNumber($num)
+    function setCurrPageNum($num)
     {
-        $this->currentPageNumber = (int) $num;
+        $this->currPageNum = (int) $num;
         return $this;
     }
 
@@ -132,9 +150,9 @@ class Paginator
      *
      * @return int
      */
-    function getCurrentPageNumber()
+    function getCurrPageNum()
     {
-        return $this->_normalizePage($this->currentPageNumber);
+        return $this->_normalizePage($this->currPageNum);
     }
 
 
@@ -151,8 +169,8 @@ class Paginator
     {
         $pageNumber = $this->_normalizePage($pageNumber);
 
-        $offset     = ($pageNumber - 1) * $this->getLimitPerPage();
-        $items      = $this->data->getItems( $offset, $this->getLimitPerPage() );
+        $offset     = ($pageNumber - 1) * $this->getPageSize();
+        $items      = $this->data->getItems( $offset, $this->getPageSize() );
 
         return $items;
     }
@@ -163,7 +181,7 @@ class Paginator
      */
     private function _calculatePageCount()
     {
-        return \ViewHelper\Paginator\calculatePageCount( count($this->data), $this->getLimitPerPage() );
+        return \ViewHelper\Paginator\calculatePageCount( count($this->data), $this->getPageSize() );
     }
 
     private function _normalizePage($currentPage)

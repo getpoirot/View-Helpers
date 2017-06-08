@@ -59,7 +59,10 @@ class Jumping
      */
     function setPageRange($num)
     {
-        $this->pageRange = (int) $num;
+        if ($num = (int) $num < 3)
+            throw new \InvalidArgumentException('PageRange cannot be less than 3.');
+
+        $this->pageRange = $num;
         return $this;
     }
 

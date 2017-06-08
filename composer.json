@@ -12,6 +12,9 @@
     , "autoload"  : {
         "psr-4": {
             "ViewHelper\\": "src/"
-        }
+        },
+        "files": [
+            "src/_functions.php"
+        ]
     }
 }
