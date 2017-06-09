@@ -35,7 +35,7 @@ return [
 
 Template:
 
-```php
+```html
 // partial/pagination
 
 <div class="col-md-12 text-center">
