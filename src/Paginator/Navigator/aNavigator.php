@@ -60,11 +60,17 @@ abstract class aNavigator
 
     function getFirst()
     {
+        if ($this->pageCount <= 0)
+            return null;
+
         return 1;
     }
 
     function getLast()
     {
+        if ($this->pageCount <= 0)
+            return null;
+
         return $this->pageCount;
     }
 
@@ -73,6 +79,9 @@ abstract class aNavigator
 
     protected function getScrollingRange($fromPageNum, $toPageNum)
     {
+        if ( $fromPageNum == null && $toPageNum == null)
+            return [];
+
         $fromPageNum = $this->_normalizePageNumber($fromPageNum);
         $toPageNum   = $this->_normalizePageNumber($toPageNum);
 
